@@ -109,7 +109,16 @@
 		<input type = "submit" name = "submit">
 		<input type = "reset">
 	</form>
-
+	<br><br>
+	{% if messages %}
+    {% for message in messages %}
+        <div style="padding: 10px; margin-bottom: 10px; border-radius: 5px; 
+            {% if message.tags == 'error' %} background-color: #f8d7da; color: #721c24; 
+            {% else %} background-color: #d4edda; color: #155724; {% endif %}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
 <br><br>
 	{{employee}}
 	<br><br>

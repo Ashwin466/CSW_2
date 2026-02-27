@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.http import HttpResponse
+from django.contrib import messages
 from .models import *
 
 # def home (request):
@@ -42,29 +43,27 @@ from .models import *
 
 # ]
     # return render(request, "index.html", context={'students': students,'users': users})
-def home (request):
-
-
-    if request.method=="POST":
+def home(request):
+    if request.method == "POST":
         data = request.POST
         emp_name = data.get("Emp_name")
         emp_email = data.get("Emp_Email")
         emp_mobile = data.get("Emp_Mobile")
 
-        print(emp_name)
-        print(emp_email)
-        print(emp_mobile)
+       
+        if Employee.objects.filter(Emp_Email=emp_email).exists():
+            messages.error(request, "Email already exists")
+            return redirect('/')
 
         Employee.objects.create(
-            Emp_name = emp_name,
-            Emp_Email = emp_email,
-            Emp_Mobile = emp_mobile
+            Emp_name=emp_name,
+            Emp_Email=emp_email,
+            Emp_Mobile=emp_mobile
         )
         return redirect('/')
 
     query = Employee.objects.all()
-    context = {'employee' : query}
-
+    context = {'employee': query}
     return render(request, "index.html", context)
 
 def delete(request, id):

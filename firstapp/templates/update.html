@@ -1,0 +1,156 @@
+<html>
+<head>
+</head>
+<body>
+<br><br>
+<center>
+    <a href = "http://127.0.0.1:8000/"> Success </a>
+	
+	<a href = "success"> Success </a>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href = "success.html"> Success.html </a>
+<br> <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<table  border="1">
+
+	<tr>
+		<th>  Image  </th>
+		<th>  Text  </th>
+	</tr>
+	<tr>
+		<td><center>  <img src ="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCZHeOeTJ3UVPCVUlgN1BmTn0KUNcCRvDsYQ&s"  width ="10%"></center>    </td>
+
+		<td> <h1> Ashwin </h1> </td>
+
+	</tr>
+</table>
+	<br>
+	<br> 
+	{{students}}
+
+	<br><br>
+<table border="1">
+        <tr>
+            <th>Sl No.</th>
+            <th>Student's Name</th>
+            <th>Registration No.</th>
+            <th>Semester</th>
+            <th>CSW</th>
+        </tr>
+        {% for student in students %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{student.name}}</td>
+            <td>{{student.regd}}</td>
+            <td>{{student.sem}}</td>
+            <td>
+                {% if student.sem == 4 %}
+                    CSW 2
+                {% elif student.sem == 3 %}
+                    CSW 1
+                {% else %}
+                    NO
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+
+	
+	<br><br>
+	<table border="1">
+		<tr>
+			<th>Sl No.</th>
+			<th>Username</th>
+			<th>Email</th>
+			<th>Mobile No.</th>
+			<th>Age</th>
+			<th>Password</th>
+			<th>Eligible for vote</th>
+			<th>Email format</th>
+		</tr>
+		{% for users in users %}
+		<tr {% for student in students %}{% if users.uname == student.name %}style="background-color: green;"{% endif %}{% endfor %}
+    		{% if users.uname not in student_names %}style="background-color: red;"{% endif %}>
+			<td>{{forloop.counter}}</td>
+			<td>{{users.uname}}</td>
+			<td>{{users.mail}}</td>
+			<td>{{users.mobile}}</td>
+			<td>{{users.age}}</td>
+			<td>{{users.pass}}</td>
+			<td>
+				{% if users.age >= 18 %}
+  				<p>Eligible</p>
+				{% else %}
+  				<p>Not eligible</p>
+				{% endif %}
+			<td>
+				{% if "@" in users.mail and "." in users.mail %}
+					<span>Valid</span>
+				{% else %}
+					<span>Invalid</span>
+				{% endif %}
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+	<br><br><br>
+	<hr>
+	<br><br>
+	<h1>UPDATE DATA</h1>
+	<form method="POST">
+		{% csrf_token %}
+        <input type = "text" name = "Emp_id" value="{{emp_update.id}}" readonly>
+		<input type = "text" name = "Emp_name" value="{{emp_update.Emp_name}}">
+		<input type = "text" name = "Emp_Email" value="{{emp_update.Emp_Email}}" >
+		<input type = "text" name = "Emp_Mobile" value="{{emp_update.Emp_Mobile}}">
+		<input type = "submit" name = "submit">
+		<input type = "reset">
+	</form>
+    <br><br>
+    <h3>Prevoius data</h3>
+    <table border = "5">
+		<tr>
+			<th>ID</th>
+			<th>Employee Name</th>
+			<th>Employee Email</th>
+			<th>Employee Mobile</th>	
+		</tr>
+    </table>
+
+
+<br><br>
+	{{employee}}
+	<br><br>
+	<table border = "5">
+		<tr>
+			<th>ID</th>
+			<th>Employee Name</th>
+			<th>Employee Email</th>
+			<th>Employee Mobile</th>
+			<th>Action</th>
+		</tr>
+        
+		{% for e in employee %}
+		<tr>
+			<td>{{e.id}}</td>
+			<td>{{e.Emp_name}}</td>
+			<td>{{e.Emp_Email}}</td>
+			<td>{{e.Emp_Mobile}}</td>
+			<td>
+				<button style="background-color: red;"><a href="delete/{{e.id}}"><font color="white">DELETE</font></a></button>
+				<button style="background-color: green;"><a href="update/{{e.id}}"><font color="white">UPDATE</font></a></button>
+			</td>	
+		</tr>
+		{% endfor %}
+	</table>
+	
+	
+</center>
+</table>
+</body>
+</html>

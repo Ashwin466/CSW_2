@@ -11,9 +11,18 @@ class Employee(models.Model):
     def __str__(self) -> str:
         return self.Emp_name
 
-class User(models.Model):
+class User1(models.Model):
     u_name = models.CharField()
     U_pass = models.CharField()
     u_mail = models.EmailField()
     u_mob = models.IntegerField()
     u_address = models.CharField(max_length=200, null=True, blank=True)
+
+class Blog(models.Model):
+    btext = models.CharField(max_length=100, null=True, blank=True)
+    bdate = models.CharField(max_length=11)
+    btime = models.CharField(max_length=11)
+    bimage = models.ImageField(upload_to="image")
+
+    def __str__(self) -> str:
+        return self.btext

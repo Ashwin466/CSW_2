@@ -126,7 +126,6 @@ def signup1(request):
         if userpassword1 != userpassword2:
             return HttpResponse("The password is mismatched")
         else:
-            # print(username,useremail,userpassword1,userpassword2)
             createuser = User.objects.create_user(username,useremail,userpassword1)
             createuser.save()
             
@@ -139,3 +138,21 @@ def logout1(request):
 @login_required
 def homeafter(request):
     return render (request, "homeafter.html")
+
+def blog(request):
+    if request.method == 'POST':
+        form_btext = request.POST.get("btext")
+        form_bdate = request.POST.get("bdate")
+        form_btime = request.POST.get("btime")
+        form_bimage = request.FILES.get("bimage")
+        Blog.objects.create(
+            btext = form_btext,
+            bdate = form_bdate,
+            btime = form_btime,
+            bimage = form_bimage
+        )
+        return redirect('/blog/')
+    query = Blog.objects.all()
+    context = {'blogdata': query}
+    return render(request, "blog.html", context)
+   

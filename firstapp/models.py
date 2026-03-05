@@ -11,7 +11,7 @@ class Employee(models.Model):
     def __str__(self) -> str:
         return self.Emp_name
 
-class user(models.Model):
+class User(models.Model):
     u_name = models.CharField()
     U_pass = models.CharField()
     u_mail = models.EmailField()

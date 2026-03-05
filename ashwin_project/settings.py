@@ -60,7 +60,7 @@ ROOT_URLCONF = 'ashwin_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ["firstapp/templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

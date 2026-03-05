@@ -1,0 +1,22 @@
+<html>
+<head>
+</head>
+<body>
+<br><br>
+<center>
+	<br><br>
+	<h1>Signup Form</h1>
+	<form method="POST">
+		{% csrf_token %}
+        <input type = "text" name = "username" placeholder="Enter your name ">
+		<input type = "email" name = "email" placeholder="Enter your email ">
+		<input type = "password" name = "passworda" placeholder="Enter your Password ">
+		<input type = "password" name = "Passwordb" placeholder="Match the Password">
+		<input type = "submit" name = "submit">
+		<input type = "reset">
+	</form>
+    <br><br>
+</center>
+</table>
+</body>
+</html>

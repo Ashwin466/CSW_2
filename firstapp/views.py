@@ -2,7 +2,13 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.http import HttpResponse
-from django.contrib import messages
+from django.contrib.auth.models import User #signup
+from django.contrib.auth import authenticate,login,logout #login
+from django.contrib.auth.decorators import login_required
+
+
+
+
 from .models import *
 
 # def home (request):
@@ -52,7 +58,6 @@ def home(request):
 
        
         if Employee.objects.filter(Emp_Email=emp_email).exists():
-            messages.error(request, "Email already exists")
             return redirect('/')
 
         Employee.objects.create(
@@ -93,3 +98,44 @@ def success (request):
     return HttpResponse("<h1> Success Page </h1>")
 def success1 (request):
     return render (request , "success.html")
+
+def login1(request):
+    if request.method == 'POST':
+        data1 = request.POST
+        username = data1.get("username")
+        userpassword = data1.get("password")
+        
+        loginuser = authenticate(request, username=username, password=userpassword)
+        
+        if loginuser is not None:
+            login(request, loginuser)
+            # Use 'loginuser' directly instead of doing User.objects.get()
+            return redirect('/homeafter/')
+        else:
+            return HttpResponse("User or password maybe wrong.")
+            
+    return render(request, "login.html")
+
+def signup1(request):
+    if request.method == 'POST':
+        data = request.POST
+        username = data.get("username")
+        useremail = data.get("email")
+        userpassword1 = data.get("passworda")
+        userpassword2 = data.get("Passwordb")
+        if userpassword1 != userpassword2:
+            return HttpResponse("The password is mismatched")
+        else:
+            # print(username,useremail,userpassword1,userpassword2)
+            createuser = User.objects.create_user(username,useremail,userpassword1)
+            createuser.save()
+            
+    return render(request, "signup.html")
+
+def logout1(request):
+    logout(request)
+    return redirect('/login1/')
+
+@login_required
+def homeafter(request):
+    return render (request, "homeafter.html")

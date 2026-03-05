@@ -4,7 +4,7 @@
 <body>
 <br><br>
 <center>
-	
+<!-- 	
 	<a href = "success"> Success </a>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<a href = "success.html"> Success.html </a>
@@ -97,8 +97,9 @@
 		</tr>
 		{% endfor %}
 	</table>
-	<br><br><br>
-	<hr>
+	<br><br  -->
+
+	<hr><hr><hr>
 	<br><br>
 	<h1>Form</h1>
 	<form method="POST">
@@ -110,15 +111,7 @@
 		<input type = "reset">
 	</form>
 	<br><br>
-	{% if messages %}
-    {% for message in messages %}
-        <div style="padding: 10px; margin-bottom: 10px; border-radius: 5px; 
-            {% if message.tags == 'error' %} background-color: #f8d7da; color: #721c24; 
-            {% else %} background-color: #d4edda; color: #155724; {% endif %}">
-            {{ message }}
-        </div>
-    {% endfor %}
-{% endif %}
+
 <br><br>
 	{{employee}}
 	<br><br>
